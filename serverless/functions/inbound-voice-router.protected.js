@@ -1,6 +1,6 @@
 const ParameterValidator = require(Runtime.getFunctions()['common/helpers/parameter-validator'].path);
 
-exports.handler = async function(context, event, callback) {
+exports.handler = async function inboundVoiceRouter(context, event, callback) {
   const response = new Twilio.Response();
   response.appendHeader('Access-Control-Allow-Origin', '*');
   response.appendHeader('Access-Control-Allow-Methods', 'OPTIONS POST GET');

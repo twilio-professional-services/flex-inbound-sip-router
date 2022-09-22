@@ -1,7 +1,7 @@
 const TokenValidator = require('twilio-flex-token-validator').functionValidator;
 const ServerlessOperations = require(Runtime.getFunctions()['common/twilio-wrappers/serverless'].path);
 
-exports.handler = TokenValidator(async function(context, event, callback) {
+exports.handler = TokenValidator(async function list(context, event, callback) {
   const scriptName = arguments.callee.name;
   const response = new Twilio.Response();
   response.appendHeader('Access-Control-Allow-Origin', '*');
