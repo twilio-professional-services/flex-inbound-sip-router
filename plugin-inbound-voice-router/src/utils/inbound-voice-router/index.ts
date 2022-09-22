@@ -72,7 +72,11 @@ export const isRouteUnique = (newRoute: InboundVoiceRoute, existingRoute: Inboun
 }
 
 export const publishConfig = async (): Promise<number> => {
-  // return values: 0=success, 2=version error, 3=failure
+  // return values: 0=success, 2=version error, 3=failure, 4=in available activity
+  if (Manager.getInstance().store.getState().flex.worker.activity.available === true) {
+    return 4;
+  }
+  
   const updateResponse = await ConfigManagerService.update(config);
   
   if (!updateResponse.success) {
