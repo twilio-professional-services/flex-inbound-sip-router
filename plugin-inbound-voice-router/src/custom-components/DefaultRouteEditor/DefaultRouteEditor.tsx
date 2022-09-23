@@ -69,6 +69,36 @@ const DefaultRouteEditor = (props: OwnProps) => {
             orientation="vertical"
             required>
             <Radio
+              id="defaultDialClient"
+              value="dial-client"
+              name="defaultType">
+              Dial client
+            </Radio>
+            <Radio
+              id="defaultDialSip"
+              value="dial-sip"
+              name="defaultType">
+              Dial SIP
+            </Radio>
+            <Radio
+              id="defaultPlay"
+              value="play"
+              name="defaultType">
+              Play
+            </Radio>
+            <Radio
+              id="defaultRefer"
+              value="refer"
+              name="defaultType">
+              Refer
+            </Radio>
+            <Radio
+              id="defaultSay"
+              value="say"
+              name="defaultType">
+              Say
+            </Radio>
+            <Radio
               id="defaultWebhook"
               value="webhook"
               name="defaultType">

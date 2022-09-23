@@ -128,6 +128,21 @@ const RouteDataTable = (props: OwnProps) => {
               let displayType = item.type;
               
               switch (item.type) {
+                case 'dial-client':
+                  displayType = 'Dial client';
+                  break;
+                case 'dial-sip':
+                  displayType = 'Dial SIP';
+                  break;
+                case 'play':
+                  displayType = 'Play';
+                  break;
+                case 'refer':
+                  displayType = 'Refer';
+                  break;
+                case 'say':
+                  displayType = 'Say';
+                  break;
                 case 'webhook':
                   displayType = 'Webhook';
                   break;
@@ -142,7 +157,7 @@ const RouteDataTable = (props: OwnProps) => {
             key="destination-column"
             header="Destination"
             content={(item: InboundVoiceRoute) => {
-              return <span>{middleTruncate(item.destination, 50, '...\u200B')}</span>
+              return <span title={item.destination}>{middleTruncate(item.destination, 50, '...\u200B')}</span>
             }} />
         </DataTable>
       </div>

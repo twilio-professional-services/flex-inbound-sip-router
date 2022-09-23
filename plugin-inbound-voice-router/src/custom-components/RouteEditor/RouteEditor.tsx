@@ -126,6 +126,36 @@ const RouteEditor = (props: OwnProps) => {
             orientation="vertical"
             required>
             <Radio
+              id="dialClient"
+              value="dial-client"
+              name="type">
+              Dial client
+            </Radio>
+            <Radio
+              id="dialSip"
+              value="dial-sip"
+              name="type">
+              Dial SIP
+            </Radio>
+            <Radio
+              id="play"
+              value="play"
+              name="type">
+              Play
+            </Radio>
+            <Radio
+              id="refer"
+              value="refer"
+              name="type">
+              Refer
+            </Radio>
+            <Radio
+              id="say"
+              value="say"
+              name="type">
+              Say
+            </Radio>
+            <Radio
               id="webhook"
               value="webhook"
               name="type">
