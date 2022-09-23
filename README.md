@@ -104,6 +104,28 @@ The last step is to reconfigure the SIP domain to use the inbound voice router f
 
 ![SIP domain configuration](screenshots/console.png)
 
+## Fixing SIP addresses showing in Flex and Insights
+
+When using SIP, you will notice that Flex and Insights will show full SIP addresses where to/from phone numbers would normally display. You can fix this by setting the following task attributes when creating a task as follows:
+
+- `name`: Set this to the parsed caller phone number
+- `conversations.external_contact`: Set this to the parsed called number
+- `customers.phone`: Set this to the parsed caller phone number
+
+If you are using Studio's "Send to Flex" widget, you can set the attributes field as follows:
+
+```
+{
+  "conversations": {
+    "external_contact": "{{ trigger.call.To | split:"@" | first | split:":" | last }}"
+  },
+  "customers": {
+    "phone": "{{ trigger.call.From | split:"@" | first | split:":" | last }}"
+  },
+  "name": "{{ trigger.call.From | split:"@" | first | split:":" | last }}"
+}
+```
+
 ## Preventing conflicting configuration updates
 
 The Flex plugin loads the configuration interface for workers with the `admin` role, of which there may be more than one. Therefore, it is a possibility that multiple people may attempt to update the configuration at the same time. To prevent workers overwriting each other's changes, a few guards have been put in place:
