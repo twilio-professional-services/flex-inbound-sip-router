@@ -1,8 +1,8 @@
-# Twilio Flex Inbound Voice Router
+# Twilio Flex Inbound SIP Router
 
 This solution provides a flexible, robust, and scalable way to manage inbound routes when using Twilio Flex with SIP domains.
 
-![Inbound voice router](screenshots/router.png)
+![Inbound SIP router](screenshots/router.png)
 
 ## Disclaimer
 
@@ -12,7 +12,7 @@ This solution provides a flexible, robust, and scalable way to manage inbound ro
 
 When configuring a SIP domain, you may select a single destination to redirect inbound calls to. This means that you must implement your own solution to route calls based on the address specified in the SIP `To` header. This aims to be that solution, by providing a function that can be used as the destination which will route calls based on your configuration.
 
-To manage route configuration, a Flex plugin is provided which adds an Inbound Voice Router item to the side navigation for workers with the `admin` role. This allows viewing the current configuration and publishing updates to the configuration.
+To manage route configuration, a Flex plugin is provided which adds an Inbound SIP Router item to the side navigation for workers with the `admin` role. This allows viewing the current configuration and publishing updates to the configuration.
 
 To allow for greater scalability, configuration is stored within a Twilio Asset behind a Twilio Function. When updates to the configuration are being saved, a new asset version is generated and included in a new build, which is deployed when completed. This means that publishing routes may take a few moments.
 
@@ -40,9 +40,9 @@ twilio plugins:install @twilio-labs/plugin-serverless
 First, clone the repository and change to its directory:
 
 ```bash
-git clone https://github.com/dremin/flex-inbound-voice-router.git
+git clone https://github.com/dremin/flex-inbound-sip-router.git
 
-cd flex-inbound-voice-router
+cd flex-inbound-sip-router
 ```
 
 Then, deploy the serverless functions:
@@ -68,7 +68,7 @@ Content-Type: application/json
   "account_sid": "Enter your Twilio Account SID here",
   "ui_attributes": {
     ... include your existing ui_attributes here ...
-    "inbound_voice_router": {
+    "inbound_sip_router": {
       "serverless_functions_domain": "Enter the serverless domain here"
     }
   }
@@ -78,7 +78,7 @@ Content-Type: application/json
 Next, switch to the Flex plugin directory:
 
 ```bash
-cd ../plugin-inbound-voice-router
+cd ../plugin-inbound-sip-router
 ```
 
 Copy `public/appConfig.example.js` to `public/appConfig.js`:
@@ -99,10 +99,10 @@ Run the plugin locally:
 twilio flex:plugins:start
 ```
 
-The last step is to reconfigure the SIP domain to use the inbound voice router function. In the Twilio Console, under the settings for your SIP domain, configure the Call Control Configuration section as follows:
+The last step is to reconfigure the SIP domain to use the inbound SIP router function. In the Twilio Console, under the settings for your SIP domain, configure the Call Control Configuration section as follows:
 
 - Configure with: `Webhooks, TwiML Bins, Functions, Studio, Proxy`
-- A call comes in: Webhook, `https://(Enter the serverless domain from above here)/inbound-voice-router`, HTTP POST
+- A call comes in: Webhook, `https://(Enter the serverless domain from above here)/inbound-sip-router`, HTTP POST
 
 ![SIP domain configuration](screenshots/console.png)
 
