@@ -99,6 +99,18 @@ Run the plugin locally:
 twilio flex:plugins:start
 ```
 
+Once you are happy with your plugin, you have to deploy then release the plugin for it to take affect on Twilio hosted Flex.
+
+Run the following command to start the deployment:
+
+```bash
+twilio flex:plugins:deploy --major --changelog "Notes for this version" --description "Functionality of the plugin"
+```
+
+After your deployment runs you will receive instructions for releasing your plugin from the bash prompt. You can use this or skip this step and release your plugin from the Flex plugin dashboard here https://flex.twilio.com/admin/plugins
+
+For more details on deploying your plugin, refer to the [deploying your plugin guide](https://www.twilio.com/docs/flex/plugins#deploying-your-plugin).
+
 The last step is to reconfigure the SIP domain to use the inbound SIP router function. In the Twilio Console, under the settings for your SIP domain, configure the Call Control Configuration section as follows:
 
 - Configure with: `Webhooks, TwiML Bins, Functions, Studio, Proxy`
