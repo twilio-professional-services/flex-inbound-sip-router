@@ -40,7 +40,7 @@ twilio plugins:install @twilio-labs/plugin-serverless
 First, clone the repository and change to its directory:
 
 ```bash
-git clone https://github.com/dremin/flex-inbound-sip-router.git
+git clone https://github.com/twilio-professional-services/flex-inbound-sip-router.git
 
 cd flex-inbound-sip-router
 ```
