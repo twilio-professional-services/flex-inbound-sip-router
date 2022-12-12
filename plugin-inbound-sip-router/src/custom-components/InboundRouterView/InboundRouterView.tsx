@@ -5,6 +5,7 @@ import { Modal, ModalBody } from '@twilio-paste/core/modal';
 import { Spinner } from '@twilio-paste/core/spinner';
 import { Stack } from '@twilio-paste/core/stack';
 import { Text } from '@twilio-paste/core/text';
+import { UploadToCloudIcon } from "@twilio-paste/icons/esm/UploadToCloudIcon";
 
 import { PublishModalContent, InboundRouterViewWrapper, InboundRouterViewHeader, InboundRouterViewContent } from './InboundRouterViewStyles';
 
@@ -72,7 +73,10 @@ const InboundRouterView = ({}) => {
           { publishState == 4 && (
             <Text as='span'>Switch to a non-available activity to publish.</Text>
           )}
-          <Button variant='secondary' onClick={publish}>Publish Routes</Button>
+          <Button variant='secondary' onClick={publish}>
+            <UploadToCloudIcon decorative />
+            Publish Routes
+          </Button>
         </Stack>
       </InboundRouterViewHeader>
       <InboundRouterViewContent>
