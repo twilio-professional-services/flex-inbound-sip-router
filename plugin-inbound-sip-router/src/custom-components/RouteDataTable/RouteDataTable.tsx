@@ -82,6 +82,28 @@ const RouteDataTable = (props: OwnProps) => {
            fullStr.slice(fullStr.length - backChars);
   };
   
+  const typeToDisplay = (type: string) => {
+    switch (type) {
+      case 'dial-application':
+        return 'Dial application';
+      case 'dial-client':
+        return 'Dial client';
+      case 'dial-sip':
+        return 'Dial SIP';
+      case 'play':
+        return 'Play';
+      case 'refer':
+        return 'Refer';
+      case 'say':
+        return 'Say';
+      case 'webhook':
+        return 'Webhook';
+      case 'twiml':
+        return 'Raw TwiML';
+    }
+    return type;
+  }
+  
   return (
     <>
       <div>
@@ -112,53 +134,25 @@ const RouteDataTable = (props: OwnProps) => {
             header="Address"
             sortDirection='asc'
             sortingFn={(a: InboundSipRoute, b: InboundSipRoute) => (a.address > b.address) ? 1 : -1}
-            content={(item: InboundSipRoute) => {
-              return <span>{item.address}</span>
-            }} />
+            content={(item: InboundSipRoute) => (<span>{item.address}</span>)} />
           <ColumnDefinition
             key="comment-column"
             header="Comment"
-            content={(item: InboundSipRoute) => {
-              return <span>{item.comment}</span>
-            }} />
+            sortDirection='asc'
+            sortingFn={(a: InboundSipRoute, b: InboundSipRoute) => (a.comment.toLowerCase() > b.comment.toLowerCase()) ? 1 : -1}
+            content={(item: InboundSipRoute) => (<span>{item.comment}</span>)} />
           <ColumnDefinition
             key="type-column"
             header="Type"
-            content={(item: InboundSipRoute) => {
-              let displayType = item.type;
-              
-              switch (item.type) {
-                case 'dial-client':
-                  displayType = 'Dial client';
-                  break;
-                case 'dial-sip':
-                  displayType = 'Dial SIP';
-                  break;
-                case 'play':
-                  displayType = 'Play';
-                  break;
-                case 'refer':
-                  displayType = 'Refer';
-                  break;
-                case 'say':
-                  displayType = 'Say';
-                  break;
-                case 'webhook':
-                  displayType = 'Webhook';
-                  break;
-                case 'twiml':
-                  displayType = 'Raw TwiML';
-                  break;
-              }
-              
-              return <span>{displayType}</span>
-            }} />
+            sortDirection='asc'
+            sortingFn={(a: InboundSipRoute, b: InboundSipRoute) => (typeToDisplay(a.type) > typeToDisplay(b.type)) ? 1 : -1}
+            content={(item: InboundSipRoute) => (<span>{typeToDisplay(item.type)}</span>)} />
           <ColumnDefinition
             key="destination-column"
             header="Destination"
-            content={(item: InboundSipRoute) => {
-              return <span title={item.destination}>{middleTruncate(item.destination, 50, '...\u200B')}</span>
-            }} />
+            sortDirection='asc'
+            sortingFn={(a: InboundSipRoute, b: InboundSipRoute) => (a.destination > b.destination) ? 1 : -1}
+            content={(item: InboundSipRoute) => (<span title={item.destination}>{middleTruncate(item.destination, 50, '...\u200B')}</span>)} />
         </DataTable>
       </div>
       <RouteEditor

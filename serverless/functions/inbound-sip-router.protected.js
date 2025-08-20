@@ -1,6 +1,7 @@
 const ParameterValidator = require(Runtime.getFunctions()['common/helpers/parameter-validator'].path);
+const { getRoute } = require(Runtime.getFunctions()['common/helpers/get-route'].path);
 
-exports.handler = async function InboundSipRouter(context, event, callback) {
+exports.handler = function InboundSipRouter(context, event, callback) {
   const response = new Twilio.Response();
   response.appendHeader('Access-Control-Allow-Origin', '*');
   response.appendHeader('Access-Control-Allow-Methods', 'OPTIONS POST GET');
@@ -15,34 +16,20 @@ exports.handler = async function InboundSipRouter(context, event, callback) {
   if (parameterError) {
     response.setStatusCode(400);
     response.setBody({ parameterError });
-    callback(null, response);
-    return;
+    return callback(null, response);
   }
   
-  const assetPath = '/config.json';
-  
-  // load data
-  const openData = Runtime.getAssets()[assetPath].open;
-  const data = JSON.parse(openData());
-  
-  let twiml = new Twilio.twiml.VoiceResponse();
-  let to;
-  
-  try {
-    to = event.To.match(/^(sips?):([^@]+)(?:@(.+))?$/)[2];
-  } catch {
-    to = event.To;
-  }
-  
-  let route = data.routes.find(route => route.address === to);
-  
-  if (!route) {
-    route = data.default;
-  }
+  const route = getRoute(event.To);
+  const twiml = new Twilio.twiml.VoiceResponse();
   
   switch (route.type) {
     case 'webhook':
       twiml.redirect(route.destination);
+      break;
+    case 'dial-application':
+      const dialApp = twiml.dial();
+      const app = dialApp.application();
+      app.applicationSid(route.destination);
       break;
     case 'dial-client':
       const dialClient = twiml.dial();
@@ -67,9 +54,8 @@ exports.handler = async function InboundSipRouter(context, event, callback) {
       <Response>
         ${route.destination}
       </Response>`);
-      callback(null, response);
-      return;
+      return callback(null, response);
   }
   
-  callback(null, twiml);
+  return callback(null, twiml);
 };

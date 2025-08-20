@@ -115,6 +115,9 @@ The last step is to reconfigure the SIP domain to use the inbound SIP router fun
 
 - Configure with: `Webhooks, TwiML Bins, Functions, Studio, Proxy`
 - A call comes in: Webhook, `https://(Enter the serverless domain from above here)/inbound-sip-router`, HTTP POST
+- Primary handler fails: _We recommend configuring a fallback behavior of your choosing here to promote high availability._
+- Call status changes: `https://(Enter the serverless domain from above here)/status-callback`, HTTP POST
+  - _This is specifically important when you plan to point routes to a Studio flow, as the status callback prevents stuck executions._
 
 ![SIP domain configuration](screenshots/console.png)
 
@@ -149,7 +152,7 @@ The Flex plugin loads the configuration interface for workers with the `admin` r
 
 ## Inclusion in a monoplugin
 
-While it makes sense for many Flex plugins to be combined into a monoplugin such as [twilio-proserv-flex-project-template](https://github.com/twilio-professional-services/twilio-proserv-flex-project-template), this specific solution is recommended to be deployed as part of a separate package. This is because the entire serverless service gets re-deployed upon configuration publishes, so a monoplugin structure would result in re-deploying excessive amounts of serverless functions and assets.
+While it makes sense for many Flex plugins to be combined into a monoplugin such as [the Flex Project Template](https://github.com/twilio-professional-services/flex-project-template), this specific solution is recommended to be deployed as part of a separate package. This is because the entire serverless service gets re-deployed upon configuration publishes, so a monoplugin structure would result in re-deploying excessive amounts of serverless functions and assets.
 
 ## Development
 
