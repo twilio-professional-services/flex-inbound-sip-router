@@ -6,16 +6,16 @@
     "postinstall": "flex-plugin pre-script-check"
   },
   "dependencies": {
-    "@twilio-paste/core": "^15.3.0",
-    "@twilio-paste/icons": "^9.2.0",
-    "@twilio/flex-plugin-scripts": "6.0.2",
+    "@twilio-paste/core": "^17.0.1",
+    "@twilio-paste/icons": "^9.4.2",
+    "@twilio/flex-plugin-scripts": "7.1.2",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@twilio/flex-ui": "^2",
+    "@twilio/flex-ui": "^2.13.2",
     "react-test-renderer": "17.0.2",
-    "typescript": "^4"
+    "typescript": "^5"
   }
 }

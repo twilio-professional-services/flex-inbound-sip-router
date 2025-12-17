@@ -118,6 +118,15 @@ const RouteEditor = (props: OwnProps) => {
               onChange={handleChangeAddress}
               required />
           </>
+          <>
+            <Label htmlFor="comment">Comment</Label>
+            <Input
+              id="comment"
+              name="comment"
+              type="text"
+              value={comment}
+              onChange={handleChangeComment} />
+          </>
           <RadioGroup
             name="type"
             value={type}
@@ -125,6 +134,12 @@ const RouteEditor = (props: OwnProps) => {
             onChange={handleChangeType}
             orientation="vertical"
             required>
+            <Radio
+              id="dialApplication"
+              value="dial-application"
+              name="type">
+              Dial application
+            </Radio>
             <Radio
               id="dialClient"
               value="dial-client"
@@ -178,28 +193,19 @@ const RouteEditor = (props: OwnProps) => {
               onChange={handleChangeDestination}
               required />
           </>
-          <>
-            <Label htmlFor="comment">Comment</Label>
-            <Input
-              id="comment"
-              name="comment"
-              type="text"
-              value={comment}
-              onChange={handleChangeComment} />
-          </>
           {
             error.length > 0 &&
             (
               <Alert variant='error'>{error}</Alert>
             )
           }
-          <Stack orientation='horizontal' spacing='space60'>
+          <Stack orientation='horizontal' spacing='space30'>
             <Button variant='primary' onClick={handleSave}>
               Save
             </Button>
             {
               props.selectedRoute !== null &&
-                (<Button variant='destructive' onClick={handleDelete}>
+                (<Button variant='destructive_secondary' onClick={handleDelete}>
                   Delete
                 </Button>)
             }
